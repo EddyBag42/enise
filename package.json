@@ -1,6 +1,6 @@
 {
   "name": "enise",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "enise node server",
   "main": "index.js",
   "dependencies": {},
@@ -12,6 +12,11 @@
     "type": "git",
     "url": "git://github.com/EddyBag42/enise.git"
   },
+  "dependencies": {
+    "enise-pg": "^0.0.0",
+    "enise-debug": "^0.0.0",
+    "enise-send": "^0.0.0"
+  }
   "author": "Bag Eddy <EddyBag42@users.noreply.github.com>",
   "license": "BSD-2-Clause",
   "bugs": {
