@@ -1,0 +1,20 @@
+{
+  "name": "enise",
+  "version": "0.0.0",
+  "description": "enise node server",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/EddyBag42/enise.git"
+  },
+  "author": "Bag Eddy <EddyBag42@users.noreply.github.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/EddyBag42/enise/issues"
+  }
+}
