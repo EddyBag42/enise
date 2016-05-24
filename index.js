@@ -8,9 +8,9 @@ var bodyParser    = require('body-parser');
 var cookieParser  = require('cookie-parser');
 var path          = require('path');
 
-var pg            = require('./lib/enise-pg');
-var debug         = require('./lib/enise-debug');
-var send          = require('./lib/enise-send');
+var pg            = require('./lib/pg');
+var debug         = require('./lib/debug');
+var send          = require('./lib/send');
 var app           = express();
 
 /**
