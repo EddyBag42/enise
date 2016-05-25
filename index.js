@@ -28,6 +28,10 @@ module.exports = {
 				this.up = true;
 				console.log('Server is up on port',cfg.port);
       });
+			app.use(function(req,res,next){
+				res.setHeader('X-Powered-By', 'Enise');
+				next();
+			});
       app.use(bodyParser.urlencoded({ extended: true }));
       if (cfg.verbose) app.use(debug);
       app.use(cookieParser());
