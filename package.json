@@ -1,6 +1,6 @@
 {
   "name": "enise",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "enise node server",
   "main": "index.js",
   "dependencies": {
