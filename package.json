@@ -1,8 +1,15 @@
 {
   "name": "enise",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "enise node server",
   "main": "index.js",
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.1",
+    "express": "~4.13.4",
+    "path": "~0.12.7",
+    "pg": "~4.5.5"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
