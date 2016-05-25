@@ -7,11 +7,7 @@ An express-based node module to provide our students a pre-configured web-server
 ----
 ## usage
     require('enise');
-    var server = enise.server({ 
-      appdir: 'myapp', 
-      port: 8080, 
-      verbose: true 
-    });
+    var server = enise.server({ appdir: 'myapp', port: 8080, verbose: true });
 
 ----
 ## changelog
