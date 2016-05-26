@@ -7,6 +7,9 @@
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.1",
     "express": "~4.13.4",
+    "multer": "^1.1.0",
+    "mv": "^2.1.1",
+    "nodedump": "~0.0.8",
     "path": "~0.12.7",
     "pg": "~4.5.5"
   },
@@ -18,9 +21,19 @@
     "type": "git",
     "url": "git://github.com/EddyBag42/enise.git"
   },
-  "author": "Bag Eddy <EddyBag42@users.noreply.github.com>",
+  "author": {
+    "name": "Bag Eddy",
+    "email": "EddyBag42@users.noreply.github.com"
+  },
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/EddyBag42/enise/issues"
-  }
+  },
+  "readme": "# enise\n\n----\n## what is enise?\nAn express-based node module to provide our students a pre-configured web-server engine within two lines of code\n\n----\n## usage\n    require('enise');\n    var server = enise.server({ port: 8080, verbose: true });\n\n----\n## changelog\n* 24-May-2013 initial commit",
+  "readmeFilename": "README.md",
+  "gitHead": "840e9c795f61131b47fe1d8c01e31e47c5f4d787",
+  "homepage": "https://github.com/EddyBag42/enise#readme",
+  "_id": "enise@0.0.19",
+  "_shasum": "99b2b05ebf716c87979416dfa0e485598d57173d",
+  "_from": "enise@0.0.19"
 }

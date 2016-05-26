@@ -2,12 +2,11 @@
 
 ----
 ## what is enise?
-An express-based node module to provide our students a pre-configured web-server engine within two lines of code
+An express-based node module to provide our students a pre-configured web-server engine with only one line of code
 
 ----
 ## usage
-    require('enise');
-    var server = enise.server({ appdir: 'myapp', port: 8080, verbose: true });
+    require('enise').server({ port: 8080, verbose: true });
 
 ----
 ## changelog
