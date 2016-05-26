@@ -26,6 +26,10 @@ module.exports = {
 	// méthode d'initialisation du web server
 	// -> placement des routes prédéfinies
   server: function(cfg) {
+		// valeurs par défaut
+		if (cfg.appdir  === undefined) cfg.appdir  = '.';
+		if (cfg.verbose === undefined) cfg.verbose = false;
+		if (cfg.port    === undefined) cfg.port    = 8080;
 		// on ne place les routes sur l'app express que lors du premier appel
 		// les fois suivantes (s'il y en a ...) on renvoie juste l'app
     if (cfg !== undefined && !this.up) {
@@ -52,7 +56,7 @@ module.exports = {
 			}
 			// warning si l'application n'a pas de dossier 'routes'
 			catch (e) {
-				console.log("Warning : you're application's 'routes' directory is missing.");
+				console.log("Warning : you're application doesn't have a 'routes' directory.");
 			}
 			// définition du serveur statique
 			// il sert le répertoire 'monapp/public'
@@ -62,7 +66,7 @@ module.exports = {
 			}
 			// warning si l'application n'a pas de dossier 'public'
 			catch (e) {
-				console.log("Warning : you're application's 'public' directory is missing.");
+				console.log("Warning : you're application doesn't have a 'public' directory.");
 			}
 			// traitement des requetes POST de type '/files/*' pour servir
 			// les fichiers du dossier 'monapp/files'
