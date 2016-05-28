@@ -92,8 +92,9 @@ module.exports.server  = function(cfg) {
 // -> memorisation de la chaine de connexion
 module.exports.pg = function(cfg) {
   if (cfg !== undefined) {
-    pg.connectionString = 'postgres://'+cfg.user+':'+cfg.password
-			+'@'+cfg.host+':5432/'+cfg.database;
+		pg.connectionConfig = {
+			user: cfg.user, database: cfg.database, 
+			password: cfg.password, port: cfg.port, host: cfg.host };
   }
   return pg;
 };
