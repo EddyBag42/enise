@@ -52,7 +52,7 @@ module.exports.server  = function(cfg) {
       res.setHeader('X-Powered-By', 'Enise');
       next();
     });
-    // parsing des variables POST
+    // parsing des arguments POST
     // pour peupler req.body
     app.use(bodyParser.urlencoded({ extended: true }));
     // parsing des COOKIES
@@ -64,24 +64,39 @@ module.exports.server  = function(cfg) {
     // utilisation du routeur principal de l'application
     // i.e. 'monapp/routes/index.js'
     var routes_path = path.join(__dirname,'../..',cfg.appdir,'routes');
+    var ok;
     try {
-      // if faudrait tester ici si le fichier 'index.js' est absent
-      // pour envoyer un warning dans la console
-      if (fs.statSync(routes_path).isDirectory()) app.use(require(routes_path));
+      ok = fs.statSync(routes_path).isDirectory();
     }
     // warning si l'application n'a pas de dossier 'routes'
     catch (e) {
-      console.log("Warning : you're application doesn't have a 'routes' directory.");
+      ok = false;
+      console.log("Warning : you're application doesn't seem to have a 'routes' directory.");
+    }
+    try {
+      // if faudrait tester ici si le fichier 'index.js' est absent
+      // pour envoyer un warning dans la console
+      if (ok) app.use(require(routes_path));
+    }
+    catch (e) {
+      console.log(e);
     }
     // définition du serveur statique
     // il sert le répertoire 'monapp/public'
     var public_path = path.join(__dirname, '../..', cfg.appdir,'public');
     try {
-      if (fs.statSync(public_path).isDirectory()) app.use(express.static(public_path));
+      ok = fs.statSync(public_path).isDirectory();
     }
     // warning si l'application n'a pas de dossier 'public'
     catch (e) {
-      console.log("Warning : you're application doesn't have a 'public' directory.");
+      ok = false;
+      console.log("Warning : you're application doesn't seem have a 'public' directory.");
+    }
+    try {
+      if (ok) app.use(express.static(public_path));
+    }
+    catch (e) {
+      console.log(e);
     }
     // traitement des requetes POST de type '/files/*' pour servir
     // les fichiers du dossier 'monapp/files'
