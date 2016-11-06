@@ -71,7 +71,7 @@ module.exports.server  = function(cfg) {
 		// warning si l'application n'a pas de dossier 'routes'
 		catch (e) {
 			ok = false;
-			console.log("Warning : you're application doesn't seem to have a 'routes' directory.");
+			// console.log("Warning : you're application doesn't seem to have a 'routes' directory.");
 		}
 		try {
 			// if faudrait tester ici si le fichier 'index.js' est absent
