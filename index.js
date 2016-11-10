@@ -86,6 +86,7 @@ module.exports.server  = function(cfg) {
 			if (req.url === '/favicon.ico') {
 				res.type('image/x-icon');
 				res.status(200).end();
+				return;
 			}
 			next();
 		});
