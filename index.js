@@ -80,6 +80,15 @@ module.exports.server  = function(cfg) {
       res.setHeader('X-Powered-By', 'Enise');
       next();
     });
+		// traitement de cette stupide double requête
+		// sur /favicon.ico au démarrage ...
+		app.use(function(req,res,next){
+			if (req.url === '/favicon.ico') {
+				res.type('image/x-icon');
+				res.status(200).end();
+			}
+			next();
+		});
     // parsing des arguments POST
     // pour peupler req.body
     app.use(bodyParser.urlencoded({ extended: true }));
