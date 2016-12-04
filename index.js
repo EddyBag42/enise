@@ -10,6 +10,7 @@ var io_cookie     = require('socket.io-cookie-parser');
 var fs            = require('fs');
 var nodedump      = require('nodedump');
 var multer        = require('multer');
+var sha1          = require('sha1');
 
 // exported npm modules
 var path          = require('path');
@@ -49,6 +50,20 @@ if (sok) {
 
 
 var io      = require('socket.io')(http);
+
+
+JSON.stringifyAligned = require('json-align');
+function sqlprint(params) {
+	var printpar = [];
+	for (var j in params) {
+		if (!isNaN(Number(params[j]))) {printpar.push(Number(params[j]));continue;}
+		if ((''+params[j]).toLowerCase()=='true') {printpar.push(true);continue;}
+		if ((''+params[j]).toLowerCase()=='false') {printpar.push(false);continue;}
+		if (params[j].constructor.name=='Array') {printpar.push('array['+sqlprint(params[j]).join()+']');continue;}
+		printpar.push("'"+params[j]+"'");
+	}
+	return printpar;
+}
 
 /**
  * Module exports.
@@ -97,8 +112,17 @@ module.exports.server  = function(cfg) {
     // pour peupler req.cookies
     app.use(cookieParser());
     io.use(io_cookie());
-    // messages console
+		// messages console
     if (cfg.verbose) app.use(debug);
+		// le cookie enise
+    app.use(function (request, response, next) {
+			if (request.cookies.enise == undefined) {
+				var enise_id = sha1(Date.now()+request.ip);
+				request.cookies.enise = enise_id;
+				response.cookie('enise', enise_id);
+			}
+			next();
+		});
     // utilisation du routeur principal de l'application
     // i.e. 'monapp/routes/index.js'
     var routes_path = path.join(path.dirname(module.parent.filename),cfg.appdir,'routes');
@@ -140,6 +164,21 @@ module.exports.server  = function(cfg) {
     // les fichiers du dossier 'monapp/files'
     app.post('/files/:name', send(path.join(path.dirname(module.parent.filename), cfg.appdir,'files'), cfg.verbose));
     app.get('/files/:name', send(path.join(path.dirname(module.parent.filename), cfg.appdir,'files'), cfg.verbose));
+		// traitement d'une requete d'execution de code sql
+		app.post('/execsql', function(request, response) {
+			var sqlreq   = request.body.sqlreq;
+			var params   = request.body.params?request.body.params:[];
+			var enise_id = request.body.enisecookie?request.cookies.enise:false;
+			if (enise_id) params.splice(request.body.enisecookie,0,enise_id);
+			var printstr = sqlreq;
+			var printpar = sqlprint(params);
+			for (var i=0; i<printpar.length ; i++) {
+				var st = '$' + (i+1);
+				printstr = printstr.split(st).join(printpar[i]);
+			}
+			console.log('SQL request :\n=> ' + printstr + ';');
+			pg.sendresult(response, sqlreq, params);
+		});
     // on peut maintenant accepter les connexions sur le port choisi
     http.listen(cfg.port, function(){
       this.up = true;
