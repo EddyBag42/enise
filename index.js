@@ -56,6 +56,7 @@ JSON.stringifyAligned = require('json-align');
 function sqlprint(params) {
 	var printpar = [];
 	for (var j in params) {
+		if (params[j].length==0) {printpar.push("'"+params[j]+"'");continue;};
 		if (!isNaN(Number(params[j]))) {printpar.push(Number(params[j]));continue;}
 		if ((''+params[j]).toLowerCase()=='true') {printpar.push(true);continue;}
 		if ((''+params[j]).toLowerCase()=='false') {printpar.push(false);continue;}
